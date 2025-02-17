@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBC Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1> Lets Play Kaun Banega Crorepati</h1>
+        <h2>Question {{ question_num + 1 }}: {{ question }}</h2>
+        
+        <form method="POST">
+            {% for option in options %}
+            <button type="submit" name="answer" value="{{ option[0] }}" class="option-btn">{{ option }}</button>
+            {% endfor %}
+        </form>
+
+        {% if feedback %}
+        <p class="feedback">{{ feedback }}</p>
+        {% endif %}
+
+        <p>Total Prize: ₹{{ total_prize }}</p>
+
+        {% if feedback %}
+        <a href="{{ url_for('play', question_num=question_num+1, total_prize=total_prize) }}" class="next-btn">Next Question</a>
+        {% endif %}
+    </div>
+</body>
+</html>
